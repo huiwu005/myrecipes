@@ -47,7 +47,11 @@ https://getbootstrap.com/docs/3.3/getting-started/
 Using this template
 https://getbootstrap.com/docs/3.3/examples/jumbotron/
 
-# 42 notes ===========================
+# 46 notes ===========================
+learn to code html & css
+https://learn.shayhowe.com/
+
+
 # 42 notes ===========================
 # 42 notes ===========================
 # 42 notes ===========================
