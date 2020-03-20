@@ -52,7 +52,10 @@ learn to code html & css
 https://learn.shayhowe.com/
 
 
-# 42 notes ===========================
+# 48 notes ===========================
+copy navigation bar from website
+https://getbootstrap.com/docs/3.3/components/#navbar
+
 # 42 notes ===========================
 # 42 notes ===========================
 # 42 notes ===========================
