@@ -57,8 +57,24 @@ copy navigation bar from website
 https://getbootstrap.com/docs/3.3/components/#navbar
 
 for css color
-google `htom color picker` use #073815 for red
+google `htom color picker` use #073815 for green
 
+- use bootstrap `jumbotron` example as body style in 
+home.html.erb
+<div class = "jumbotron"></div>
+
+- add `yield` field into `container`
+app/views/layouts/application.html.erb
+    <div class = "container">
+      <%= yield %>
+    </div>
+- change text align to center
+home.html.erb
+    <div class = "jumbotron center"> </div>
+custom.css.scss add
+    .center {
+        text-align: center;
+    }
 
 # 42 notes ===========================
 # 42 notes ===========================

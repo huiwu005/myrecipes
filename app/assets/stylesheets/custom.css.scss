@@ -1,8 +1,11 @@
-$navbar-default-bg: #bd3d37; // black; //default navbar backgroud color
+$navbar-default-bg: #073815; // black; //default navbar backgroud color
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.center {
+    text-align: center;
+}
 #logo{
     float: left;
     font-size: 1.7em;
