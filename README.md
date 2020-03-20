@@ -56,6 +56,10 @@ https://learn.shayhowe.com/
 copy navigation bar from website
 https://getbootstrap.com/docs/3.3/components/#navbar
 
+for css color
+google `htom color picker` use #073815 for red
+
+
 # 42 notes ===========================
 # 42 notes ===========================
 # 42 notes ===========================
