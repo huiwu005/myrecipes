@@ -6,7 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-/Udemy_video
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -23,6 +22,7 @@
 !/storage/.keep
 
 /node_modules
+/bower_components
 /yarn-error.log
 
 /public/assets
