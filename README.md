@@ -87,5 +87,8 @@ choose example, right click -> view page source
 copy below <div></div>
 <!-- Site footer -->
 
+- homework
+Assignment: Create the footer, add styling and then paste an image of it to the Q & A!
+deploy this application
 # 42 notes ===========================
 # 42 notes ===========================
