@@ -79,5 +79,13 @@ custom.css.scss add
 # 50 notes ===========================
 - change background
 https://unsplash.com/
+
+- add three column on home page
+https://getbootstrap.com/docs/3.3/examples/justified-nav/
+choose example, right click -> view page source
+<!-- Example row of columns -->
+copy below <div></div>
+<!-- Site footer -->
+
 # 42 notes ===========================
 # 42 notes ===========================
