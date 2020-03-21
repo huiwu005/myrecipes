@@ -33,3 +33,12 @@ $navbar-default-bg: hsl(46, 85%, 29%); // black; //default navbar backgroud colo
     letter-spacing: -1px;
     font-weight: bold;
 }
+
+.btn-xlarge {
+    background-color: rgb(192, 189, 22);
+}
+
+.btn-xlarge:hover {
+    color: #fff;
+    text-decoration: none;
+}
