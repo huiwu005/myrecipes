@@ -22,7 +22,8 @@ $ heroku create
 Creating app... done, ⬢ peaceful-cliffs-10078
 https://peaceful-cliffs-10078.herokuapp.com/ | https://git.heroku.com/peaceful-cliffs-10078.git
 $ heroku git:remote -a peaceful-cliffs-10078
-$ git push heroku master
+$ git push heroku master <!--  or -->
+$ git push heroku master --no-verify
     --- remote:        https://peaceful-cliffs-10078.herokuapp.com/ deployed to Heroku
 $ heroku run rails db:migrate
 
