@@ -28,6 +28,7 @@ $ git push heroku master --no-verify
 $ heroku run rails db:migrate
 
 # 42 notes ===========================
+https://try.ruby-lang.org/
 ## Minitest
 Layout of the application
 
@@ -91,5 +92,42 @@ copy below <div></div>
 - homework
 Assignment: Create the footer, add styling and then paste an image of it to the Q & A!
 deploy this application
-# 42 notes ===========================
+# 54 notes ===========================
+database and 1:m associations
+
+- Relational Databased
+- SQL - Structured Query Language
+- ActiveRecord - abstraction - Ruby - translated to SQ
+L
+
+## Database layer, Associations
+1:m -- one to many
+m:m -- many to many
+Object Relational Mapper - ORM
+
+e.g. Database
+aritcles
+ID      title           description                     user_id
+1       Great Weather   Great Weather outside today     3
+2       Second Article  Today is great day of coding    2
+3       ...              ...                            6
+...
+
+users
+ID      username    email
+1       joe         joe@example.com
+2
+3
+...
+6
+...
+
+hans_many // on the one side
+belongs_to // on the many side
+
+## Relational Database
+goto Todo app
+
+
+
 # 42 notes ===========================
