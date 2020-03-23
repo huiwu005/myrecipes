@@ -104,6 +104,9 @@ L
 1:m -- one to many
 m:m -- many to many
 Object Relational Mapper - ORM
+Relational Database
+Virtual atrributes are
+ORM
 
 e.g. Database
 aritcles
@@ -128,6 +131,35 @@ belongs_to // on the many side
 ## Relational Database
 goto Todo app
 
+# 56 notes ===========================
+Switch back from todoapp
 
 
-# 42 notes ===========================
+
+# 56 notes ===========================
+Recipes
+ID, name, descrtiption, chef_id
+
+Chefs
+ID, name, email
+
+# 56 notes ===========================
+Recipe 
+- recipe should be valid
+- name should be present
+- description should be present 
+- chef_id should be present -- later **
+- maximum length for name and description, maybe a minimum for description
+
+Chef
+- chefname should be present
+- email should be present
+- size restrictions on email and chefname
+- email address should be valid format
+- email should be unique, case insensitive
+
+# 56 notes ===========================
+# 56 notes ===========================
+# 56 notes ===========================
+# 56 notes ===========================
+# 56 notes ===========================
