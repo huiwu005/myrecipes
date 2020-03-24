@@ -213,7 +213,9 @@ $ rails test
 Expected true to be nil or false
 then remove comment test again, the testing should be passed
 
-# 56 notes ===========================
+# 60 notes ===========================
+test regex format by using https://rubular.com/
+
 # 56 notes ===========================
 # 56 notes ===========================
 # 56 notes ===========================
