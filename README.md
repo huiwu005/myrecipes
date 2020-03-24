@@ -158,7 +158,39 @@ Chef
 - email address should be valid format
 - email should be unique, case insensitive
 
-# 56 notes ===========================
+# 58 notes ===========================
+> @m = Recipe.new
+> Recipe
+ => Recipe(id: integer, name: string, description: text, created_at: datetime, updated_at: datetime) 
+
+> @m = Recipe.new(name: "", description: "")
+ => #<Recipe id: nil, name: "", description: "", created_at: nil, updated_at: nil> 
+> @m.save
+  (0.3ms)  BEGIN
+  Recipe Create (2.2ms)  INSERT INTO "recipes" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", ""], ["description", ""], ["created_at", "2020-03-24 15:02:17.239771"], ["updated_at", "2020-03-24 15:02:17.239771"]]
+   (0.4ms)  COMMIT
+ => true 
+
+ ## add validateion
+ add `validates :name, presence: true` in recipe.rb
+ > @m = Recipe.new(name: "", description: "")
+ => #<Recipe id: nil, name: "", description: "", created_at: nil, updated_at: nil> 
+> @m.save <!-- can't be saved after validates applied -->
+   (0.3ms)  BEGIN
+   (0.2ms)  ROLLBACK
+ => false 
+> @m.errors.any?
+ => true 
+> @m.errors.full_messages
+ => ["Name can't be blank"] 
+> Recipe.delete_all <!-- delete all data -->
+  Recipe Destroy (0.8ms)  DELETE FROM "recipes"
+ => 1 
+
+## homework
+build Chefs database
+
+
 # 56 notes ===========================
 # 56 notes ===========================
 # 56 notes ===========================
