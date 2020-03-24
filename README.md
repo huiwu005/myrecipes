@@ -216,6 +216,55 @@ then remove comment test again, the testing should be passed
 # 60 notes ===========================
 test regex format by using https://rubular.com/
 
-# 56 notes ===========================
+# 64 notes ===========================
+one to many association
+> @c = Chef.new(chefname: "m", email: "m@example.com")
+> @c.save
+<!-- create can hit our db -->
+> @c1 = Chef.create(chefname: "john", email: "john@example.com")
+> Chef.all <!-- we have two chefs -->
+  Chef Load (0.3ms)  SELECT  "chefs".* FROM "chefs" LIMIT $1  [["LIMIT", 11]]
+ => #<ActiveRecord::Relation [
+     #<Chef id: 1, chefname: "m", email: "m@example.com", created_at: "2020-03-24 18:49:51", updated_at: "2020-03-24 18:49:51">, 
+     #<Chef id: 2, chefname: "john", email: "john@example.com", created_at: "2020-03-24 18:52:52", updated_at: "2020-03-24 18:52:52">]> 
+
+<!-- Since chef has associate to recipes, we can create recipes automatically assign to the chef using below command -->
+> chef = Chef.last
+> recipe = chef.recipes.build(name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes")
+ => #<Recipe id: nil, name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes", created_at: nil, updated_at: nil, chef_id: 2> 
+> recipe.save
+    (0.2ms)  BEGIN
+  Recipe Create (0.4ms)  INSERT INTO "recipes" ("name", "description", "created_at", "updated_at", "chef_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "italian vegetables"], ["description", "amazing italian vegetables cooked for 20 minutes"], ["created_at", "2020-03-24 19:01:38.077213"], ["updated_at", "2020-03-24 19:01:38.077213"], ["chef_id", 2]]
+   (0.4ms)  COMMIT
+ => true 
+> recipe.chef 
+=> #<Chef id: 2, chefname: "john", email: "john@example.com", created_at: "2020-03-24 18:52:52", updated_at: "2020-03-24 18:52:52"> 
+> recipe.chef.chefname
+=> "john" 
+<!-- forget below error, I got this correct later after create new recipe. Don't know why and how -->
+        <!-- below command I have different disply here than Udemy lecture -->
+        > recipe.chef 
+        <!-- in Udemy got chef info -->
+        => #<Chef id: 2, chefname: "john", email: "john@example.com", created_at: "2020-03-24 18:52:52", updated_at: "2020-03-24 18:52:52"> 
+        <!-- but I got error --> 
+            Traceback (most recent call last):
+                    1: from (irb):94
+            NoMethodError (undefined method `chef' for #<Recipe:0x00007fb6599715a0>)
+            Did you mean?  chef_id
+
+> chef.recipes <!-- this works -->
+  Recipe Load (0.2ms)  SELECT  "recipes".* FROM "recipes" WHERE "recipes"."chef_id" = $1 LIMIT $2  [["chef_id", 2], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Recipe id: 2, name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes", created_at: "2020-03-24 19:01:38", updated_at: "2020-03-24 19:01:38", chef_id: 2>]> 
+
+> recipe = Recipe.create(name: "vegetable saute", description: "lots of vegetables cooked inoil for 15 min", chef_id: 2)
+> chef.recipes
+  Recipe Load (0.3ms)  SELECT  "recipes".* FROM "recipes" WHERE "recipes"."chef_id" = $1 LIMIT $2  [["chef_id", 2], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [
+     #<Recipe id: 2, name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes", created_at: "2020-03-24 19:01:38", updated_at: "2020-03-24 19:01:38", chef_id: 2>, 
+     #<Recipe id: 3, name: "vegetable saute", description: "lots of vegetables cooked inoil for 15 min", created_at: "2020-03-24 19:47:37", updated_at: "2020-03-24 19:47:37", chef_id: 2>]> 
+
+-- or -- 
+> recipe = Recipe.new(name: "vegetable saute", description: "lots of vegetables cooked inoil for 15 min")
+> chef.recipes << recipe <!-- insert, hit db, auto assign to chef -->
 # 56 notes ===========================
 # 56 notes ===========================
