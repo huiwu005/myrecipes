@@ -266,5 +266,18 @@ one to many association
 -- or -- 
 > recipe = Recipe.new(name: "vegetable saute", description: "lots of vegetables cooked inoil for 15 min")
 > chef.recipes << recipe <!-- insert, hit db, auto assign to chef -->
-# 56 notes ===========================
+
+# 66 notes ===========================
+back to web
+Prefix       Verb     URI Pattern                Controller#Action
+root        GET     /                           pages#home
+pages_home  GET     /pages/home(.:format)       pages#home
+new_recipe  GET     /recipes/new                recipes#new         #display a new form
+            POST    /recipes                    recipes#create      #submit the information from the form
+edit_recipe GET     /recipes/:id/edit           recipes#edit        #display on edit form
+            PATCH   /recipes/:id                recipes#update      #submit the edited form information
+recipe      GET     /recipes/:id                recipes#show        #display a particular recipe
+            DELETE  /recipes/:id                recipes#destroy     #deletes a particular recipe --- **specify DELETE to get destroy action**
+
+
 # 56 notes ===========================
