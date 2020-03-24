@@ -1,7 +1,7 @@
 # README
-
+Skip adding ActiveStorage on new builds https://mikerogers.io/2018/04/13/remove-activestorage-from-rails-5-2.html
 Create new myrecipes app
-$ rails new myrecipes
+$ rails new myrecipes --skip-active-storage
 
 ## change below for heroku
 - replace `sqlite3` to `pg` in Gemfile
@@ -280,4 +280,17 @@ recipe      GET     /recipes/:id                recipes#show        #display a p
             DELETE  /recipes/:id                recipes#destroy     #deletes a particular recipe --- **specify DELETE to get destroy action**
 
 
-# 56 notes ===========================
+# 67 notes ===========================
+$ rails g integration_test recipes
+
+
+# 67 notes ===========================
+# 67 notes ===========================
+# 67 notes ===========================
+# 67 notes ===========================
+# 67 notes ===========================
+# 67 notes ===========================
+# 67 notes ===========================
+# 67 notes ===========================
+# 67 notes ===========================
+# 67 notes ===========================
