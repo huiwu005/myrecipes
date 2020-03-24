@@ -190,6 +190,28 @@ Chef
 ## homework
 build Chefs database
 
+## testing
+read https://guides.rubyonrails.org/testing.html#available-assertions
+require 'test_helper'
+
+class RecipeTest < ActiveSupport::TestCase
+    def setup
+        @recipe = Recipe.new(name: "vegetable", description: "great vegetable recipe")
+    end
+    test "recipe should be valid" do
+        assert @recipe.valid?
+    end
+end
+$ rails test <!-- run test -->
+    #validates :name, presence: true <!-- comment this in recipe.rb -->
+<!-- add below in recipe_test.rb, then test will be failed -->
+    test 'name should be present' do
+        @recipe.name = " "
+        assert_not @recipe.valid?
+    end
+$ rails test
+Expected true to be nil or false
+then remove comment test again, the testing should be passed
 
 # 56 notes ===========================
 # 56 notes ===========================
