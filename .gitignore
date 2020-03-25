@@ -6,7 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-/Udemy_video/*/*.mp4
 
 # Ignore the default SQLite database.
 # /db/*.sqlite3
