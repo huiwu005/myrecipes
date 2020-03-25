@@ -300,7 +300,15 @@ https://en.gravatar.com/
 
 
 
-# 67 notes ===========================
+# 75 notes ===========================
+Build new recipe page
+https://getbootstrap.com/docs/3.3/css/#forms
+you can use form from above page, but don't use <form></form>tag, you can copy and paste code between <form></form> tag, but don't cope this tag, it will get you the trouble when you use this in ruby
+
+## read through
+https://guides.rubyonrails.org/form_helpers.html
+
+
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
