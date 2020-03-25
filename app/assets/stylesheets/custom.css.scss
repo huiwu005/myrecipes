@@ -26,12 +26,6 @@ $navbar-default-bg: hsl(46, 85%, 29%); // black; //default navbar backgroud colo
     text-decoration: none;
 }
 
-#logofooter{
-    float: left;
-    font-size: 1.5em;
-    color: #fff;
-}
-
 .jumbotron h1, h2 {
     color: #fff;
     text-align: center;
@@ -48,3 +42,42 @@ $navbar-default-bg: hsl(46, 85%, 29%); // black; //default navbar backgroud colo
     color: #fff;
     text-decoration: none;
 }
+
+footer {
+    margin-top: 45px;
+    padding-top: 5px;
+    border-top: 1px solid #eaeaea;
+    color: #777;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  
+  footer a {
+    color: #555;
+  }
+  
+  footer a:hover {
+    color: #222;
+  }
+  
+  footer small {
+    float: left;
+  }
+  
+  footer ul {
+    float: right;
+    list-style: none;
+  }
+  
+  footer ul li {
+    float: left;
+    margin-left: 15px;
+  }
+  .description {
+    margin-top: 0;
+  }
+  .well a {
+    color: hsl(46, 85%, 29%);
+
+  }
