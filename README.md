@@ -287,6 +287,19 @@ $ rails g integration_test recipes
 # 73 notes ===========================
 https://en.gravatar.com/
 
+## refactor code 
+- make a new file `app/views/shared/_page_title.html.erb` to share refactor code 
+<h1 align="center"><%= title.capitalize %> </h1>
+<hr />
+- replace below code in related page.
+<%= render "shared/page_title", title: "Show all recipes" %>
+
+## Gravatar
+`app/helpers/application_helper.rb` method(s) inside are available to your views
+
+
+
+
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
