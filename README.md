@@ -284,7 +284,9 @@ recipe      GET     /recipes/:id                recipes#show        #display a p
 $ rails g integration_test recipes
 
 
-# 67 notes ===========================
+# 73 notes ===========================
+https://en.gravatar.com/
+
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
