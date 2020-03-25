@@ -35,5 +35,12 @@ class RecipesTest < ActionDispatch::IntegrationTest
 
   test "reject invalid recipe submissions" do
       get new_recipe_path
+      assert_template 'recipes/new'
+      assert_no_difference 'Recipe.count' do #if new recipe saved/hit db, db will be changed
+        post recipes_path, params: { recipes: { name: " ", description: " "}}
+      end
+      assert_template 'recipes/new'
+      assert_select 'h2.panel-title'
+      assert_select 'div.panel-body'
   end
 end

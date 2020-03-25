@@ -1,4 +1,13 @@
 <%= render 'shared/page_title', title: "New recipe" %>
+<% if @recipe.errors.any? %>
+    <%= pluralize(@recipe.errors.count, "error") %>
+    prohibited this <%= @recipes.class %> from being saved:
+    <ul>
+        <%= @recipe.errors.full_messages.each do |m| %>
+            <li><%= m %></li>
+        <% end %>
+    </ul>
+<% end %>
 
 <div class="row">
     <div class="col-md-12">
