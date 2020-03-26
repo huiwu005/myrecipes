@@ -317,7 +317,31 @@ $ rails test test/integration/recipes_edit_test.rb
 $ git push heroku HEAD:master
 $ heroku run rails db:migrate
 $ heroku run rails console
-# 67 notes ===========================
+# Section 5 #99 notes ===========================
+has secure password
+https://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.htm
+
+`gem 'bcrypt', '~> 3.1.7'` uncomment this in Gemfile
+add `password_digest` in schema
+$ rails g migration add_password_digest_to_chefs
+
+password
+password_confirmation
+authenticate
+
+> chef = Chef.last
+> chef.password = "password"
+> chef
+ => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-25 14:46:42", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW..."> 
+> chef.authenticate('nottherightpassword')
+ => false 
+> chef.authenticate('password')
+ => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-26 20:43:42", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW..."> 
+
+ $ rails test:models
+
+
+ 
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
