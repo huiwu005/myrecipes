@@ -309,7 +309,10 @@ you can use form from above page, but don't use <form></form>tag, you can copy a
 https://guides.rubyonrails.org/form_helpers.html
 
 
-# 67 notes ===========================
+# 89 notes ===========================
+$ rails g integration_test recipes_edit
+run specific test
+$ rails test test/integration/recipes_edit_test.rb
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
