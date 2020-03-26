@@ -313,7 +313,10 @@ https://guides.rubyonrails.org/form_helpers.html
 $ rails g integration_test recipes_edit
 run specific test
 $ rails test test/integration/recipes_edit_test.rb
-# 67 notes ===========================
+# 93 notes ===========================
+$ git push heroku HEAD:master
+$ heroku run rails db:migrate
+$ heroku run rails console
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
