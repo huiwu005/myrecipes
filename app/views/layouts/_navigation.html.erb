@@ -17,9 +17,10 @@
         <li class="active"><a href="recipes">Recipes <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Chefs</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Recipes <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
+            <li><%= link_to  "Create a new recipe", new_recipe_path %></li>
+            <%# <li><a href="/recipes/new">Create New Recipe</a></li> %>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
