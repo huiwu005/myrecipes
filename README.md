@@ -338,10 +338,10 @@ authenticate
 > chef.authenticate('password')
  => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-26 20:43:42", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW..."> 
 
- $ rails test:models
+ $ rails test:models <!-- run model test only -->
 
 
- 
+
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
