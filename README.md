@@ -287,8 +287,32 @@ $ rails g integration_test recipes
 # 73 notes ===========================
 https://en.gravatar.com/
 
-# 67 notes ===========================
-# 67 notes ===========================
+## refactor code 
+- make a new file `app/views/shared/_page_title.html.erb` to share refactor code 
+<h1 align="center"><%= title.capitalize %> </h1>
+<hr />
+- replace below code in related page.
+<%= render "shared/page_title", title: "Show all recipes" %>
+
+## Gravatar
+`app/helpers/application_helper.rb` method(s) inside are available to your views
+
+
+
+
+# 75 notes ===========================
+Build new recipe page
+https://getbootstrap.com/docs/3.3/css/#forms
+you can use form from above page, but don't use <form></form>tag, you can copy and paste code between <form></form> tag, but don't cope this tag, it will get you the trouble when you use this in ruby
+
+## read through
+https://guides.rubyonrails.org/form_helpers.html
+
+
+# 89 notes ===========================
+$ rails g integration_test recipes_edit
+run specific test
+$ rails test test/integration/recipes_edit_test.rb
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================

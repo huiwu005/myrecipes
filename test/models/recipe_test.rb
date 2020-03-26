@@ -12,7 +12,6 @@ class RecipeTest < ActiveSupport::TestCase
     end
     test "recipe should be valid" do
         assert @recipe.valid?
-
     end
     test 'name should be present' do
         @recipe.name = " "
