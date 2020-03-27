@@ -340,9 +340,21 @@ authenticate
 
  $ rails test:models <!-- run model test only -->
 
+# 103 notes ===========================
+use `debugger`
+if create new chef with empty email, on `rails s` terminal `server`:
+    ...
+    5:     def create
+    6:         debugger
+    => 7:     end
+    8: end
+    (byebug) 
+    (byebug) params
+    <ActionController::Parameters {"utf8"=>"✓", "authenticity_token"=>"oI8joP7CfkW+CdeQRywJuOKnX+b5Yzl45Dv5j19BCNs80RiD44KDnpbYILmsguKazhs/Rfta+BLYXWCa1WqVaQ==", "chef"=>{"chefname"=>"info", "email"=>"", "password"=>"1111", "password_confirmation"=>"1111"}, "commit"=>"Create my account", "controller"=>"chefs", "action"=>"create"} permitted: false>
+    (byebug) 
+    (byebug) continue <!-- type continue to release the server -->
+    (byebug) continueNo template found for ChefsController#create, rendering head :no_content
 
-
-# 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
