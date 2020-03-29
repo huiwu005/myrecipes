@@ -1,8 +1,6 @@
 <%= render 'shared/page_title', title: "Showing all chefs" %>
 <div align="center">
     <%= will_paginate %>
-</div>
-<div align="center">
     <% @chefs.each do |chef| %>
         <ul class="listing">
             <div class="row">
@@ -11,14 +9,11 @@
                     <li class="chef-title">
                         <%= link_to chef.chefname.capitalize, chef_path(chef) %>
                     </li>
-                    <li><small>
-                    <%= pluralize(chef.recipes.count, "recipe") if chef.recipes %>
+                    <li><small><%= pluralize(chef.recipes.count, "recipe") if chef.recipes %>
                     </small></li>
                 </div>
             </div>
         </ul>
     <% end %>
-</div>
-<div align="center">
     <%= will_paginate %>
 </div>
