@@ -355,7 +355,42 @@ if create new chef with empty email, on `rails s` terminal `server`:
     (byebug) continue <!-- type continue to release the server -->
     (byebug) continueNo template found for ChefsController#create, rendering head :no_content
 
-# 67 notes ===========================
+# 115 notes ===========================
+login
+SESSION 
+- session_controller.rb
+- login routes - login, logout
+- test to get the route
+
+In `sessions_controller.rb`
+    def create
+        debugger
+    end
+(byebug) params
+<ActionController::Parameters {"utf8"=>"✓", "authenticity_token"=>"Zygdmf1mb9jVI1nEvHLiQg9IQ+ayAzbKvgjkudKxKFD7dia64CaSA/3yru1X3AlgI/QjRbA696CCbn2sWJq14g==", "session"=>{"email"=>"chef5@example.com", "password"=>"password"}, "commit"=>"Log in", "controller"=>"sessions", "action"=>"create"} permitted: false>
+(byebug) params[:session]
+<ActionController::Parameters {"email"=>"chef5@example.com", "password"=>"password"} permitted: false>
+(byebug) params[:session][:email]
+"chef5@example.com"
+(byebug) 
+
+- find user email in db
+> chef = Chef.find_by(email: "john@example.com")
+  Chef Load (0.9ms)  SELECT  "chefs".* FROM "chefs" WHERE "chefs"."email" = $1 LIMIT $2  [["email", "john@example.com"], ["LIMIT", 1]]
+ => nil <!-- no record found -->
+ > chef = Chef.find_by(email: "chef5@example.com")
+  Chef Load (0.4ms)  SELECT  "chefs".* FROM "chefs" WHERE "chefs"."email" = $1 LIMIT $2  [["email", "chef5@example.com"], ["LIMIT", 1]]
+ => #<Chef id: 6, chefname: "Chef5", email: "chef5@example.com", created_at: "2020-03-29 18:56:23", updated_at: "2020-03-29 18:56:23", password_digest: "$2a$12$rJxFhIYOKQNP7gb06ZpJxOGPv9IwJFpykNy5GVpYmlh..."> 
+
+(byebug) params[:session][:password]
+"password"
+ > chef.authenticate("password")
+ => #<Chef id: 6, chefname: "Chef5", email: "chef5@example.com", created_at: "2020-03-29 18:56:23", updated_at: "2020-03-29 18:56:23", password_digest: "$2a$12$rJxFhIYOKQNP7gb06ZpJxOGPv9IwJFpykNy5GVpYmlh..."> 
+ > chef.authenticate("incorrectpassword")
+ => false 
+
+(byebug) continue <!--exit debugger -->
+
 # 67 notes ===========================
 # 67 notes ===========================
 # 67 notes ===========================
