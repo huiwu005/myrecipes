@@ -361,6 +361,8 @@ SESSION
 - session_controller.rb
 - login routes - login, logout
 - test to get the route
+- Not a model backed resource!
+- Storing the encrypted chef_id in the session hash <!-- in your browers' cookie -->
 
 In `sessions_controller.rb`
     def create
@@ -390,6 +392,9 @@ In `sessions_controller.rb`
  => false 
 
 (byebug) continue <!--exit debugger -->
+
+## after finish navigation part to change login and logout link, 
+update all `password_digest: nil` in your db Chef table
 
 # 67 notes ===========================
 # 67 notes ===========================
