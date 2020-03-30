@@ -430,6 +430,8 @@ Admin user functionality
    (0.7ms)  COMMIT
  => true 
 
+## read many-to-many association
+ https://guides.rubyonrails.org/association_basics.html#choosing-between-belongs-to-and-has-one
  
 # 67 notes ===========================
 # 67 notes ===========================
