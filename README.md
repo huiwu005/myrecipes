@@ -396,6 +396,40 @@ In `sessions_controller.rb`
 ## after finish navigation part to change login and logout link, 
 update all `password_digest: nil` in your db Chef table
 
-# 67 notes ===========================
+# 129 notes ===========================
+Admin user functionality
+- Permission system virtual necessity in every web based/software app
+- Can be very complex, in CRM or Project Management app's they're one of the primary features
+- There can be separate tables with permissions for different user levels
+    *This means multiple actions on each and every page will need to hit the database for cheks - compromising performance
+- Simpler permission based system - You can have a role attribute added to users
+    *Roles can be admin, supervisor, moderator etc with different access levels
+- For our app we'll add an admin attribute if true then the user is an admin. The default will be false
+- We' ll update our views and controllers based on this
+- Admins will have full access - editing other chefs's recipes, updating chef info, deleting other chefs
+
+
+## in db change chef to admin true
+> chef = Chef.find_by(chefname: "mashrur")
+  Chef Load (0.3ms)  SELECT  "chefs".* FROM "chefs" WHERE "chefs"."chefname" = $1 LIMIT $2  [["chefname", "mashrur"], ["LIMIT", 1]]
+ => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-30 18:31:58", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW...", admin: false> 
+> chef.toggle!(:admin) <!-- turn admin: false to true -->
+   (0.2ms)  BEGIN
+  Chef Update (0.4ms)  UPDATE "chefs" SET "updated_at" = $1, "admin" = $2 WHERE "chefs"."id" = $3  [["updated_at", "2020-03-30 19:39:04.052091"], ["admin", true], ["id", 3]]
+   (0.6ms)  COMMIT
+ => true 
+> chef
+ => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-30 19:39:04", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW...", admin: true> 
+
+> chef.admin?
+ => true 
+> chef.save
+   (0.2ms)  BEGIN
+  Chef Exists (0.4ms)  SELECT  1 AS one FROM "chefs" WHERE LOWER("chefs"."email") = LOWER($1) AND "chefs"."id" != $2 LIMIT $3  [["email", "m@example.com"], ["id", 1], ["LIMIT", 1]]
+  Chef Update (0.4ms)  UPDATE "chefs" SET "updated_at" = $1, "admin" = $2 WHERE "chefs"."id" = $3  [["updated_at", "2020-03-30 20:05:47.602403"], ["admin", true], ["id", 1]]
+   (0.7ms)  COMMIT
+ => true 
+
+ 
 # 67 notes ===========================
 # 67 notes ===========================
