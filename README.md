@@ -317,9 +317,119 @@ $ rails test test/integration/recipes_edit_test.rb
 $ git push heroku HEAD:master
 $ heroku run rails db:migrate
 $ heroku run rails console
-# 67 notes ===========================
-# 67 notes ===========================
-# 67 notes ===========================
-# 67 notes ===========================
+# Section 5 #99 notes ===========================
+has secure password
+https://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.htm
+
+`gem 'bcrypt', '~> 3.1.7'` uncomment this in Gemfile
+add `password_digest` in schema
+$ rails g migration add_password_digest_to_chefs
+
+password
+password_confirmation
+authenticate
+
+> chef = Chef.last
+> chef.password = "password"
+> chef
+ => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-25 14:46:42", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW..."> 
+> chef.authenticate('nottherightpassword')
+ => false 
+> chef.authenticate('password')
+ => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-26 20:43:42", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW..."> 
+
+ $ rails test:models <!-- run model test only -->
+
+# 103 notes ===========================
+use `debugger`
+if create new chef with empty email, on `rails s` terminal `server`:
+    ...
+    5:     def create
+    6:         debugger
+    => 7:     end
+    8: end
+    (byebug) 
+    (byebug) params
+    <ActionController::Parameters {"utf8"=>"✓", "authenticity_token"=>"oI8joP7CfkW+CdeQRywJuOKnX+b5Yzl45Dv5j19BCNs80RiD44KDnpbYILmsguKazhs/Rfta+BLYXWCa1WqVaQ==", "chef"=>{"chefname"=>"info", "email"=>"", "password"=>"1111", "password_confirmation"=>"1111"}, "commit"=>"Create my account", "controller"=>"chefs", "action"=>"create"} permitted: false>
+    (byebug) 
+    (byebug) continue <!-- type continue to release the server -->
+    (byebug) continueNo template found for ChefsController#create, rendering head :no_content
+
+# 115 notes ===========================
+login
+SESSION 
+- session_controller.rb
+- login routes - login, logout
+- test to get the route
+- Not a model backed resource!
+- Storing the encrypted chef_id in the session hash <!-- in your browers' cookie -->
+
+In `sessions_controller.rb`
+    def create
+        debugger
+    end
+(byebug) params
+<ActionController::Parameters {"utf8"=>"✓", "authenticity_token"=>"Zygdmf1mb9jVI1nEvHLiQg9IQ+ayAzbKvgjkudKxKFD7dia64CaSA/3yru1X3AlgI/QjRbA696CCbn2sWJq14g==", "session"=>{"email"=>"chef5@example.com", "password"=>"password"}, "commit"=>"Log in", "controller"=>"sessions", "action"=>"create"} permitted: false>
+(byebug) params[:session]
+<ActionController::Parameters {"email"=>"chef5@example.com", "password"=>"password"} permitted: false>
+(byebug) params[:session][:email]
+"chef5@example.com"
+(byebug) 
+
+- find user email in db
+> chef = Chef.find_by(email: "john@example.com")
+  Chef Load (0.9ms)  SELECT  "chefs".* FROM "chefs" WHERE "chefs"."email" = $1 LIMIT $2  [["email", "john@example.com"], ["LIMIT", 1]]
+ => nil <!-- no record found -->
+ > chef = Chef.find_by(email: "chef5@example.com")
+  Chef Load (0.4ms)  SELECT  "chefs".* FROM "chefs" WHERE "chefs"."email" = $1 LIMIT $2  [["email", "chef5@example.com"], ["LIMIT", 1]]
+ => #<Chef id: 6, chefname: "Chef5", email: "chef5@example.com", created_at: "2020-03-29 18:56:23", updated_at: "2020-03-29 18:56:23", password_digest: "$2a$12$rJxFhIYOKQNP7gb06ZpJxOGPv9IwJFpykNy5GVpYmlh..."> 
+
+(byebug) params[:session][:password]
+"password"
+ > chef.authenticate("password")
+ => #<Chef id: 6, chefname: "Chef5", email: "chef5@example.com", created_at: "2020-03-29 18:56:23", updated_at: "2020-03-29 18:56:23", password_digest: "$2a$12$rJxFhIYOKQNP7gb06ZpJxOGPv9IwJFpykNy5GVpYmlh..."> 
+ > chef.authenticate("incorrectpassword")
+ => false 
+
+(byebug) continue <!--exit debugger -->
+
+## after finish navigation part to change login and logout link, 
+update all `password_digest: nil` in your db Chef table
+
+# 129 notes ===========================
+Admin user functionality
+- Permission system virtual necessity in every web based/software app
+- Can be very complex, in CRM or Project Management app's they're one of the primary features
+- There can be separate tables with permissions for different user levels
+    *This means multiple actions on each and every page will need to hit the database for cheks - compromising performance
+- Simpler permission based system - You can have a role attribute added to users
+    *Roles can be admin, supervisor, moderator etc with different access levels
+- For our app we'll add an admin attribute if true then the user is an admin. The default will be false
+- We' ll update our views and controllers based on this
+- Admins will have full access - editing other chefs's recipes, updating chef info, deleting other chefs
+
+
+## in db change chef to admin true
+> chef = Chef.find_by(chefname: "mashrur")
+  Chef Load (0.3ms)  SELECT  "chefs".* FROM "chefs" WHERE "chefs"."chefname" = $1 LIMIT $2  [["chefname", "mashrur"], ["LIMIT", 1]]
+ => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-30 18:31:58", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW...", admin: false> 
+> chef.toggle!(:admin) <!-- turn admin: false to true -->
+   (0.2ms)  BEGIN
+  Chef Update (0.4ms)  UPDATE "chefs" SET "updated_at" = $1, "admin" = $2 WHERE "chefs"."id" = $3  [["updated_at", "2020-03-30 19:39:04.052091"], ["admin", true], ["id", 3]]
+   (0.6ms)  COMMIT
+ => true 
+> chef
+ => #<Chef id: 3, chefname: "mashrur", email: "mashrur.hossain@gmail.com", created_at: "2020-03-25 14:45:34", updated_at: "2020-03-30 19:39:04", password_digest: "$2a$12$9W6Q0g7ZXpoYqQ6x34wql.ZReG7n0MuamMpdmMWt8oW...", admin: true> 
+
+> chef.admin?
+ => true 
+> chef.save
+   (0.2ms)  BEGIN
+  Chef Exists (0.4ms)  SELECT  1 AS one FROM "chefs" WHERE LOWER("chefs"."email") = LOWER($1) AND "chefs"."id" != $2 LIMIT $3  [["email", "m@example.com"], ["id", 1], ["LIMIT", 1]]
+  Chef Update (0.4ms)  UPDATE "chefs" SET "updated_at" = $1, "admin" = $2 WHERE "chefs"."id" = $3  [["updated_at", "2020-03-30 20:05:47.602403"], ["admin", true], ["id", 1]]
+   (0.7ms)  COMMIT
+ => true 
+
+ 
 # 67 notes ===========================
 # 67 notes ===========================
