@@ -430,6 +430,123 @@ Admin user functionality
    (0.7ms)  COMMIT
  => true 
 
+## read many-to-many association
+ https://guides.rubyonrails.org/association_basics.html#choosing-between-belongs-to-and-has-one
+
+# Section06_133 notes ===========================
+Ingredients
+- many-to-many association
+- skip buiding test-suite
+- building faster
+- still no generators unless necessory!
+- has_many :through
+- will be present in all recipes
+- each recipe may have more than 1 ingredient - many ingredients
+- same ingredient can be used by many recipes
+![Many to Many association](Udemy_video/Sec06_Many2ManyAssoc/#133_M2MAssoc.png)
+![Comments](Udemy_video/Sec06_Many2ManyAssoc/#133_comments.png)
+- We will start building the back-end of this
+
+Comments and Ingredients!
+
+
+# 134 notes ===========================
+Ingredients
+- will have many attribute
+- will have many-to-many association with recipes
+
+later on -
+- Only admin users will be able to add ingredients
+
+## start ---
+$ rails g migration create_ingredients
+$ rails g migration create_recipe_ingredients
+$ rails console
+
+create `app/models/ingredient.rb` then
+> Ingredient
+> ing = Ingredient.create(name: "chicken")
+> ing2 = Ingredient.create(name: "carrots")
+> Ingredient.all
+  Ingredient Load (0.3ms)  SELECT  "ingredients".* FROM "ingredients" LIMIT $1  [["LIMIT", 11]]
+ => #<ActiveRecord::Relation [#<Ingredient id: 1, name: "chicken">, #<Ingredient id: 2, name: "carrots">]> 
+
+create `app/models/recipe_ingredient.rb` 
+associate `recipe_ingredient.rb`, `recipe.rb`, and `recipe_ingredient.rb` using `belongs_to`, `has_many`
+
+> ing = Ingredient.first
+> recipe = Recipe.first
+> recipe.ingredients << ing
+   (0.2ms)  BEGIN
+  RecipeIngredient Create (0.5ms)  INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id") VALUES ($1, $2) RETURNING "id"  [["recipe_id", 14], ["ingredient_id", 1]]
+   (0.3ms)  COMMIT
+  Ingredient Load (0.3ms)  SELECT  "ingredients".* FROM "ingredients" INNER JOIN "recipe_ingredients" ON "ingredients"."id" = "recipe_ingredients"."ingredient_id" WHERE "recipe_ingredients"."recipe_id" = $1 LIMIT $2  [["recipe_id", 14], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Ingredient id: 1, name: "chicken">]> 
+<!-- see what do we get -->
+> RecipeIngredient.all
+  RecipeIngredient Load (0.4ms)  SELECT  "recipe_ingredients".* FROM "recipe_ingredients" LIMIT $1  [["LIMIT", 11]]
+ => #<ActiveRecord::Relation [#<RecipeIngredient id: 1, recipe_id: 14, ingredient_id: 1>]> 
+> recipe.ingredients
+  Ingredient Load (0.5ms)  SELECT  "ingredients".* FROM "ingredients" INNER JOIN "recipe_ingredients" ON "ingredients"."id" = "recipe_ingredients"."ingredient_id" WHERE "recipe_ingredients"."recipe_id" = $1 LIMIT $2  [["recipe_id", 14], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Ingredient id: 1, name: "chicken">]> 
+> ing.recipes
+  Recipe Load (0.4ms)  SELECT  "recipes".* FROM "recipes" INNER JOIN "recipe_ingredients" ON "recipes"."id" = "recipe_ingredients"."recipe_id" WHERE "recipe_ingredients"."ingredient_id" = $1 ORDER BY "recipes"."updated_at" DESC LIMIT $2  [["ingredient_id", 1], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1>]> 
+
+ > ing.recipes << Recipe.last
+  Recipe Load (0.3ms)  SELECT  "recipes".* FROM "recipes" ORDER BY "recipes"."updated_at" ASC LIMIT $1  [["LIMIT", 1]]
+   (0.1ms)  BEGIN
+  RecipeIngredient Create (0.2ms)  INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id") VALUES ($1, $2) RETURNING "id"  [["recipe_id", 2], ["ingredient_id", 1]]
+   (0.5ms)  COMMIT
+  Recipe Load (0.4ms)  SELECT  "recipes".* FROM "recipes" INNER JOIN "recipe_ingredients" ON "recipes"."id" = "recipe_ingredients"."recipe_id" WHERE "recipe_ingredients"."ingredient_id" = $1 ORDER BY "recipes"."updated_at" DESC LIMIT $2  [["ingredient_id", 1], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1>, #<Recipe id: 2, name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes", created_at: "2020-03-24 19:01:38", updated_at: "2020-03-25 14:48:08", chef_id: 3>]
  
-# 67 notes ===========================
-# 67 notes ===========================
+ > ing.recipes <!-- two recipes associated -->
+  Recipe Load (0.5ms)  SELECT  "recipes".* FROM "recipes" INNER JOIN "recipe_ingredients" ON "recipes"."id" = "recipe_ingredients"."recipe_id" WHERE "recipe_ingredients"."ingredient_id" = $1 ORDER BY "recipes"."updated_at" DESC LIMIT $2  [["ingredient_id", 1], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [
+     #<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1>, 
+     #<Recipe id: 2, name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes", created_at: "2020-03-24 19:01:38", updated_at: "2020-03-25 14:48:08", chef_id: 3>]
+
+# 136 notes ===========================
+## comments table
+$ rails g migration create_comments
+create `app/models/comment.rb` and associate `comment.rb`, `recipe.rb`, and `chef.rb`
+
+> chef = Chef.first
+> recipe = Recipe.first
+> comment = Comment.create!(description: "great recipe", chef: chef, recipe: recipe)
+   (0.1ms)  BEGIN
+  Comment Create (0.5ms)  INSERT INTO "comments" ("description", "chef_id", "recipe_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["description", "great recipe"], ["chef_id", 1], ["recipe_id", 14], ["created_at", "2020-03-31 16:16:28.836762"], ["updated_at", "2020-03-31 16:16:28.836762"]]
+   (0.3ms)  COMMIT
+ => #<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28"> 
+<!-- we got -->
+> recipe.comments
+  Comment Load (0.5ms)  SELECT  "comments".* FROM "comments" WHERE "comments"."recipe_id" = $1 ORDER BY "comments"."updated_at" DESC LIMIT $2  [["recipe_id", 14], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28">]> 
+> chef.comments
+  Comment Load (0.3ms)  SELECT  "comments".* FROM "comments" WHERE "comments"."chef_id" = $1 ORDER BY "comments"."updated_at" DESC LIMIT $2  [["chef_id", 1], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28">]> 
+> comment.chef
+ => #<Chef id: 1, chefname: "m", email: "m@example.com", created_at: "2020-03-24 18:49:51", updated_at: "2020-03-30 20:05:47", password_digest: "$2a$12$/OiqSrwYGuFF/bP3tXgv5e0zyd2HW6vm790ptHTVuOq...", admin: true> 
+> comment.chef.chefname
+ => "m" 
+> comment.recipe
+ => #<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1> 
+
+
+> comment = recipe.comments.build(description: "another greate recipe", chef: chef)
+ => #<Comment id: nil, description: "another greate recipe", chef_id: 1, recipe_id: 14, created_at: nil, updated_at: nil> 
+> comment.save
+> recipe.comments <!-- two comments associated to first recipe -->
+  Comment Load (0.4ms)  SELECT  "comments".* FROM "comments" WHERE "comments"."recipe_id" = $1 ORDER BY "comments"."updated_at" DESC LIMIT $2  [["recipe_id", 14], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Comment id: 2, description: "another greate recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:23:16", updated_at: "2020-03-31 16:23:16">, #<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28">]> 
+
+
+# 134 notes ===========================
+# 134 notes ===========================
+# 134 notes ===========================
+# 134 notes ===========================
+# 134 notes ===========================
+# 134 notes ===========================
+# 134 notes ===========================
+# 134 notes ===========================

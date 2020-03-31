@@ -1,4 +1,4 @@
-$navbar-default-bg: hsl(46, 85%, 29%); // black; //default navbar backgroud color
+$navbar-default-bg: rgb(141, 196, 13); // black; //default navbar backgroud color
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -8,7 +8,7 @@ $navbar-default-bg: hsl(46, 85%, 29%); // black; //default navbar backgroud colo
 }
 
 .jumbotron {
-    background-image: asset-url('cover_image.jpg');
+    background-image: asset-url('images3.jpg');
     background-size: cover;
     height: 300;
 }
@@ -35,7 +35,7 @@ $navbar-default-bg: hsl(46, 85%, 29%); // black; //default navbar backgroud colo
 }
 
 .btn-xlarge {
-    background-color: rgb(192, 189, 22);
+    background-color: rgb(141, 196, 13);
 }
 
 .btn-xlarge:hover {
@@ -48,8 +48,8 @@ footer {
     padding-top: 5px;
     border-top: 1px solid #eaeaea;
     color: #777;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   
   
@@ -78,7 +78,7 @@ footer {
     margin-top: 0;
   }
   .well a {
-    color: hsl(46, 85%, 29%);
+    color: rgb(141, 196, 13);
   }
 
   .chef_info {
@@ -86,7 +86,7 @@ footer {
   }
 
   .colormatch a {
-    color: hsl(46, 85%, 29%);
+    color: rgb(141, 196, 13);
   }
 
   .recipe-actions {
@@ -100,7 +100,11 @@ footer {
   padding-left: 0;
 }
 .chef-title {
-  color: hsl(46, 85%, 29%);
+  color: rgb(141, 196, 13);
   font-weight: bold;
   font-size: 1.25em;
+}
+// for in windows checkbox won't display correct sometime
+.input_checkbox input { 
+  width: auto !important;
 }
