@@ -505,7 +505,41 @@ associate `recipe_ingredient.rb`, `recipe.rb`, and `recipe_ingredient.rb` using 
      #<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1>, 
      #<Recipe id: 2, name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes", created_at: "2020-03-24 19:01:38", updated_at: "2020-03-25 14:48:08", chef_id: 3>]
 
-# 134 notes ===========================
+# 136 notes ===========================
+## comments table
+$ rails g migration create_comments
+create `app/models/comment.rb` and associate `comment.rb`, `recipe.rb`, and `chef.rb`
+
+> chef = Chef.first
+> recipe = Recipe.first
+> comment = Comment.create!(description: "great recipe", chef: chef, recipe: recipe)
+   (0.1ms)  BEGIN
+  Comment Create (0.5ms)  INSERT INTO "comments" ("description", "chef_id", "recipe_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["description", "great recipe"], ["chef_id", 1], ["recipe_id", 14], ["created_at", "2020-03-31 16:16:28.836762"], ["updated_at", "2020-03-31 16:16:28.836762"]]
+   (0.3ms)  COMMIT
+ => #<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28"> 
+<!-- we got -->
+> recipe.comments
+  Comment Load (0.5ms)  SELECT  "comments".* FROM "comments" WHERE "comments"."recipe_id" = $1 ORDER BY "comments"."updated_at" DESC LIMIT $2  [["recipe_id", 14], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28">]> 
+> chef.comments
+  Comment Load (0.3ms)  SELECT  "comments".* FROM "comments" WHERE "comments"."chef_id" = $1 ORDER BY "comments"."updated_at" DESC LIMIT $2  [["chef_id", 1], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28">]> 
+> comment.chef
+ => #<Chef id: 1, chefname: "m", email: "m@example.com", created_at: "2020-03-24 18:49:51", updated_at: "2020-03-30 20:05:47", password_digest: "$2a$12$/OiqSrwYGuFF/bP3tXgv5e0zyd2HW6vm790ptHTVuOq...", admin: true> 
+> comment.chef.chefname
+ => "m" 
+> comment.recipe
+ => #<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1> 
+
+
+> comment = recipe.comments.build(description: "another greate recipe", chef: chef)
+ => #<Comment id: nil, description: "another greate recipe", chef_id: 1, recipe_id: 14, created_at: nil, updated_at: nil> 
+> comment.save
+> recipe.comments <!-- two comments associated to first recipe -->
+  Comment Load (0.4ms)  SELECT  "comments".* FROM "comments" WHERE "comments"."recipe_id" = $1 ORDER BY "comments"."updated_at" DESC LIMIT $2  [["recipe_id", 14], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Comment id: 2, description: "another greate recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:23:16", updated_at: "2020-03-31 16:23:16">, #<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28">]> 
+
+
 # 134 notes ===========================
 # 134 notes ===========================
 # 134 notes ===========================
