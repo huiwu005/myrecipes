@@ -25,6 +25,10 @@ $ heroku git:remote -a peaceful-cliffs-10078
 $ git push heroku master <!--  or -->
 $ git push heroku master --no-verify
     --- remote:        https://peaceful-cliffs-10078.herokuapp.com/ deployed to Heroku
+>>if `error: src refspec master does not match any
+error: failed to push some refs to 'https://git.heroku.com/hw-myrecipes005.git'`
+$ git push heroku HEAD:master
+
 $ heroku run rails db:migrate
 
 # 42 notes ===========================
@@ -542,7 +546,11 @@ create `app/models/comment.rb` and associate `comment.rb`, `recipe.rb`, and `che
  => #<ActiveRecord::Associations::CollectionProxy [#<Comment id: 2, description: "another greate recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:23:16", updated_at: "2020-03-31 16:23:16">, #<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28">]> 
 
 
-# 134 notes ===========================
+# Section 7 notes ===========================
+read WebSocket https://en.wikipedia.org/wiki/WebSocket
+read xhr https://en.wikipedia.org/wiki/XMLHttpRequest
+
+
 # 134 notes ===========================
 # 134 notes ===========================
 # 134 notes ===========================
