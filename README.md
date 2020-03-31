@@ -499,7 +499,9 @@ associate `recipe_ingredient.rb`, `recipe.rb`, and `recipe_ingredient.rb` using 
   RecipeIngredient Create (0.2ms)  INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id") VALUES ($1, $2) RETURNING "id"  [["recipe_id", 2], ["ingredient_id", 1]]
    (0.5ms)  COMMIT
   Recipe Load (0.4ms)  SELECT  "recipes".* FROM "recipes" INNER JOIN "recipe_ingredients" ON "recipes"."id" = "recipe_ingredients"."recipe_id" WHERE "recipe_ingredients"."ingredient_id" = $1 ORDER BY "recipes"."updated_at" DESC LIMIT $2  [["ingredient_id", 1], ["LIMIT", 11]]
- => #<ActiveRecord::Associations::CollectionProxy [#<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1>, #<Recipe id: 2, name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes", created_at: "2020-03-24 19:01:38", updated_at: "2020-03-25 14:48:08", chef_id: 3>]> ing.recipes <!-- two recipes associated -->
+ => #<ActiveRecord::Associations::CollectionProxy [#<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1>, #<Recipe id: 2, name: "italian vegetables", description: "amazing italian vegetables cooked for 20 minutes", created_at: "2020-03-24 19:01:38", updated_at: "2020-03-25 14:48:08", chef_id: 3>]
+ 
+ > ing.recipes <!-- two recipes associated -->
   Recipe Load (0.5ms)  SELECT  "recipes".* FROM "recipes" INNER JOIN "recipe_ingredients" ON "recipes"."id" = "recipe_ingredients"."recipe_id" WHERE "recipe_ingredients"."ingredient_id" = $1 ORDER BY "recipes"."updated_at" DESC LIMIT $2  [["ingredient_id", 1], ["LIMIT", 11]]
  => #<ActiveRecord::Associations::CollectionProxy [
      #<Recipe id: 14, name: "This is a new test recipe - edit", description: "This is def created by M \r\n- edited by admin", created_at: "2020-03-30 18:14:31", updated_at: "2020-03-30 20:11:33", chef_id: 1>, 
