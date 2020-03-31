@@ -6,6 +6,9 @@
     <%# keep format when input %>
     <%= simple_format(@recipe.description) %> 
     <hr />
+    <% if @recipe.ingredients.any? %>
+        <p> ingredients: <%= render @recipe.ingredients %></p>
+    <% end %>
     <div class="pull-right">
         <p class="center"><em>Created by:</em></p>
         <p class="center">
