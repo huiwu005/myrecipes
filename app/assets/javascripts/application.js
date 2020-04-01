@@ -15,3 +15,14 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+
+// when page rolled, it starts from the bottom
+function scrollToBottom(){
+    if($('#messages').length > 0) {
+      $('#messages').scrollTop($('#messages')[0].scrollHeight);
+    }
+}
+
+$(document).ready(function() {
+    scrollToBottom();
+})

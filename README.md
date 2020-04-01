@@ -585,9 +585,28 @@ $ heroku restart
 $ heroku config:get REDIS_URL
 $ git push heroku HEAD:master
 
-
 $ heroku login
-# 134 notes ===========================
+
+
+# 158 notes ===========================
+Chatroom
+
+we need a message model
+should belong to chef
+validate :content
+
+> mes = Message.create!(content: "This is first test message", chef: Chef.first)
+  Chef Load (0.3ms)  SELECT  "chefs".* FROM "chefs" ORDER BY "chefs"."id" ASC LIMIT $1  [["LIMIT", 1]]
+   (0.2ms)  BEGIN
+  Message Create (0.8ms)  INSERT INTO "messages" ("content", "chef_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["content", "This is first test message"], ["chef_id", 1], ["created_at", "2020-04-01 18:26:35.098683"], ["updated_at", "2020-04-01 18:26:35.098683"]]
+   (0.3ms)  COMMIT
+ => #<Message id: 1, content: "This is first test message", chef_id: 1, created_at: "2020-04-01 18:26:35", updated_at: "2020-04-01 18:26:35"> 
+> chef = Chef.first
+> mes.chef
+
+
+
+
 # 134 notes ===========================
 # 134 notes ===========================
 # 134 notes ===========================
