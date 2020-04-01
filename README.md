@@ -25,6 +25,10 @@ $ heroku git:remote -a peaceful-cliffs-10078
 $ git push heroku master <!--  or -->
 $ git push heroku master --no-verify
     --- remote:        https://peaceful-cliffs-10078.herokuapp.com/ deployed to Heroku
+>>if `error: src refspec master does not match any
+error: failed to push some refs to 'https://git.heroku.com/hw-myrecipes005.git'`
+$ git push heroku HEAD:master
+
 $ heroku run rails db:migrate
 
 # 42 notes ===========================
@@ -542,7 +546,37 @@ create `app/models/comment.rb` and associate `comment.rb`, `recipe.rb`, and `che
  => #<ActiveRecord::Associations::CollectionProxy [#<Comment id: 2, description: "another greate recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:23:16", updated_at: "2020-03-31 16:23:16">, #<Comment id: 1, description: "great recipe", chef_id: 1, recipe_id: 14, created_at: "2020-03-31 16:16:28", updated_at: "2020-03-31 16:16:28">]> 
 
 
-# 134 notes ===========================
+# Section 7 151 notes ===========================
+read WebSocket https://en.wikipedia.org/wiki/WebSocket
+read xhr https://en.wikipedia.org/wiki/XMLHttpRequest
+
+WebSocket is computer commuications protocol, providing full-duplex communication channels over a signle TCP connection
+
+- The WebSocket protocol makes more interaction between a browser and a seb server possible, facilitating real-time data transfer from and to the server.
+-This is made possible by providing a standardized way for the server to send content to the brower without being solicited by the client, and allowing for messages to be passed back and forth while keeping the connection open.
+- In this way, a two-way (bi-directional) ongoing conversation can take place between a browser and the server.
+
+What you need to remember:
+- The realtime socket connectin between the client (browser) and server (Your web server/app) is handled by the rails ActionCable.
+- THis commnunication is handled by Javascript wrappers for websockets on both end.
+![]{Udemy_video/Sec07_RealtimeRails/#151-1.png}
+![]{Udemy_video/Sec07_RealtimeRails/#151-2.png}
+
+You have to specify two things:
+1) In config/application.rb -> You have show the path in which the cable items will be exposed.
+ It's the route which the client (browser) will call in order to make the websocket connection with the server (which is where the actioncable server will be mounted)
+2) In your config/routes.rb file -> You have to expose the actual path
+so in 1) You're saying where the path will be, and 2) You're giving the path
+
+The third part of this is the channel ->
+1) Here you'll mention where to stream from, you can have multiple websocket connections between browser and server, you have to name your stream something, for example, for our comments feature wi'll name it comments
+2) Once the stream is established, from the server it's sending a stream, the client is now subscribed to new items that com in, so the server sends a message and client receives it.
+![]{Udemy_video/Sec07_RealtimeRails/#151-3.png}
+
+## start to work
+- generate `app/channels/comments_channel.rb`
+$ rails g channel comments
+
 # 134 notes ===========================
 # 134 notes ===========================
 # 134 notes ===========================

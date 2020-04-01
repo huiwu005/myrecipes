@@ -6,9 +6,10 @@ class CommentsController < ApplicationController
         @comment = @recipe.comments.build(comment_params)
         @comment.chef = current_chef
         if @comment.save
-            flash[:sucess] = "comment was created successfully"
-            redirect_to recipe_path(@recipe)
-
+            # display comment immediately after submitting instead of flash[:success] and redirect_to
+            ActionCable.server.broadcast "comments", render(partial: 'comments/comment', object: @comment)
+            # flash[:sucess] = "comment was created successfully"
+            # redirect_to recipe_path(@recipe)
         else
             flash[:danger] = "Comment was not created"
             # redirect_to :back # does not work on Rails 5
