@@ -1,0 +1,1 @@
+$redis = Radis.new(url: ENV["REDIS_URL"]) if Rails.env.production?
