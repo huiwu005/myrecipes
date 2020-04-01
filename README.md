@@ -577,7 +577,16 @@ The third part of this is the channel ->
 - generate `app/channels/comments_channel.rb`
 $ rails g channel comments
 
-# 134 notes ===========================
+# 155 notes ===========================
+deploy to heroku
+Need credit card information, otherwise get error
+$ heroku addons:create heroku-redis:hobby-dev -a hw-myrecipes005
+$ heroku restart
+$ heroku config:get REDIS_URL
+$ git push heroku HEAD:master
+
+
+$ heroku login
 # 134 notes ===========================
 # 134 notes ===========================
 # 134 notes ===========================
