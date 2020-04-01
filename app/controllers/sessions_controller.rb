@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
         chef = Chef.find_by(email: params[:session][:email].downcase)
         if chef && chef.authenticate(params[:session][:password])
             session[:chef_id] = chef.id # Storing the encrypted chef_id in the session hash
+            cookies.signed[:chef_id] = chef.id
             flash[:sucess] = "You have successfully logged in"
             redirect_to chef # or chef_path(chef) chef's show page
         else
