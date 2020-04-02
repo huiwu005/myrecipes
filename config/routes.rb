@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     # nesting comments in receipe
     # recipe_comments POST   /recipes/:recipe_id/comments(.:format) comments#create
     resources :comments, only: [:create] 
+    member do
+      post 'like'
+    end
   end
   get '/signup', to: 'chefs#new'
   resources :chefs, except: [:new]

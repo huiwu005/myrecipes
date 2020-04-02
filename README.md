@@ -607,7 +607,10 @@ validate :content
 
 
 
-# 134 notes ===========================
+# 169 Project Like notes ===========================
+> like = Like.create!(like: true, chef: Chef.first, recipe: Recipe.first)
+> like2 = Like.create!(like: true, chef: Chef.first, recipe: Recipe.last)
+
 # 134 notes ===========================
 # 134 notes ===========================
 # 134 notes ===========================
