@@ -7,10 +7,10 @@
             <%= render @messages %> 
         </div>
         <hr />
-        <div class="message-container">
-        <!-- Realtime chat -->
+        <!-- Realtime chat https://stackoverflow.com/questions/33027838/rails-4-how-to-allow-user-to-submit-form-with-enter-key-without-submit-button/33027944#33027944 -->
+        <div class="message-container" id="send">
             <%= form_for(@message, remote: true, :html => { class: "form-horizontal", role: "form"}) do |f| %>
-                <%= f.text_area :content, class: "form-control", placeholder: "Say something!" %>
+                <%= f.text_field :content, class: "form-control", placeholder: "Say something!" %>
                 <%= f.submit "Send", class: "btn btn-primary"%>
             <% end %>
         </div>

@@ -23,6 +23,32 @@ function scrollToBottom(){
     }
 }
 
+// used in course, but doesn't work mostly due to rails version issue
+
+// function submitMessage(event){
+//   event.preventDefault();
+//   $('#new_message').submit();
+// }
+
+// $(document).on('keypress', '[data-behavior~=room_speaker]', function(event) {
+//   if (event.keyCode == 13) {
+//     submitMessage(event);
+//   }
+// });
+
+// $(document).on('click', '[data-send~=message]', function(event) {
+//   submitMessage(event);
+// });
+
 $(document).ready(function() {
-    scrollToBottom();
-})
+  // $("#new_message").on("ajax:complete", function(e, data, status) {
+  //   $('#message_content').val('');
+  // })
+  scrollToBottom();
+});
+
+$('#send').keypress(function(e){
+  if(e.which == 13){
+       $(this).closest('form').submit();
+   }
+});
