@@ -611,7 +611,35 @@ validate :content
 > like = Like.create!(like: true, chef: Chef.first, recipe: Recipe.first)
 > like2 = Like.create!(like: true, chef: Chef.first, recipe: Recipe.last)
 
-# 134 notes ===========================
-# 134 notes ===========================
-# 134 notes ===========================
-# 134 notes ===========================
+# 174 notes ===========================
+Local development setup for Rails!
+- Mac users
+- PC users, please use a cloud based IDE to avoid future troubles with gems and all kind of unexpected behavior
+
+3 things:
+Terminal - command line
+File tree and editor - Atom or sublime text (or if you already have a favorite editor)
+Browser to proview - localhost:3000
+- install xcode, homebrew, rvm for ruby on rails
+$ xcode-select --install
+google https://brew.sh/
+copy `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
+$ brew doctor
+- get rvm https://rvm.io
+\curl -L https//get.rvm.io | bash -s stable
+$ rvm get stable -- get stable rvm
+$ rvm list
+ruby -v
+gem -v
+gem update --system
+gem outdated
+gem update
+gem install bundler
+gem install nokogiri
+rvm use ruby-2.3.3@rails5.0 --create   
+gem install rails -- grab the latest version of rails
+mkdir myrecipes
+cd myrecipes
+rvm use ruby-2.3.3@myrecipes --ruby-version --create # myrecipe will use gem set
+gem install rails
+rails new .  # will take current folder as a new application
