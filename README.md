@@ -1,3 +1,6 @@
+Instructor myrecipes application code
+https://github.com/proror5railsudemy/myrecipes
+
 # README
 Skip adding ActiveStorage on new builds https://mikerogers.io/2018/04/13/remove-activestorage-from-rails-5-2.html
 Create new myrecipes app
